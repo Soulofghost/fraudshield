@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  fraudshield-sentinel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fraudshield-radar
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=FraudShield
+      - DEBUG=False
+      - FRAUDSHIELD_DB_PATH=/app/data/fraudshield.db
+    volumes:
+      - fraudshield-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  fraudshield-data:
+    driver: local

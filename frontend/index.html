@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FraudShield | Real-Time Transaction Anomaly & Fraud Risk Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="shield-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>Fraud<span>Shield</span></h1>
+          <span class="sub">Financial Anomaly & Risk Detection Engine</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="shield-status"><span class="radar-ping"></span> Real-Time Sentinel Active</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Metrics Ribbon -->
+  <section class="kpi-strip">
+    <div class="kpi-inner">
+      <div class="kpi-card">
+        <span class="kpi-label">Transactions Screened</span>
+        <span class="kpi-val" id="kpi-total">--</span>
+        <span class="kpi-sub">Continuous stream</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Block Rate</span>
+        <span class="kpi-val danger" id="kpi-rate">--%</span>
+        <span class="kpi-sub">Critical fraud ratio</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Flagged Volume</span>
+        <span class="kpi-val warning" id="kpi-volume">$--</span>
+        <span class="kpi-sub">Prevented exposure</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Open Compliance Alerts</span>
+        <span class="kpi-val" id="kpi-alerts">--</span>
+        <span class="kpi-sub">Pending review</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Grid -->
+  <main class="main-content">
+    <div class="ops-grid">
+      <!-- Left Column: Transaction Simulator & Live Evaluation -->
+      <section class="card simulator-card">
+        <div class="card-header">
+          <div>
+            <h2>Transaction Anomaly Evaluator</h2>
+            <p>Simulate financial payments to test velocity bursts, impossible travel, and statistical outlier anomalies.</p>
+          </div>
+        </div>
+
+        <div class="scenario-bar">
+          <span class="scenario-label">Load Threat Scenario:</span>
+          <div class="scenario-chips">
+            <button type="button" class="btn-scenario" data-scenario="coffee">Legitimate SF Coffee</button>
+            <button type="button" class="btn-scenario" data-scenario="travel">Impossible Travel (Tokyo)</button>
+            <button type="button" class="btn-scenario" data-scenario="velocity">Velocity Carding Spike</button>
+            <button type="button" class="btn-scenario" data-scenario="crypto">Offshore Crypto Outlier</button>
+          </div>
+        </div>
+
+        <form id="eval-form">
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label for="user-id">User ID / Cardholder</label>
+              <input type="text" id="user-id" required class="input-ctrl mono" value="usr_alvin_884">
+            </div>
+            <div class="form-group">
+              <label for="card-last4">Card Last 4</label>
+              <input type="text" id="card-last4" required maxlength="4" class="input-ctrl mono" value="8821">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tx-amount">Amount ($ USD)</label>
+              <input type="number" id="tx-amount" step="0.01" min="0.01" required class="input-ctrl mono" value="4.85">
+            </div>
+            <div class="form-group flex-2">
+              <label for="merchant-name">Merchant Name</label>
+              <input type="text" id="merchant-name" required class="input-ctrl" value="Blue Bottle Coffee SF">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="merchant-cat">Merchant Category</label>
+              <select id="merchant-cat" class="select-ctrl">
+                <option value="coffee_shop" selected>Food & Beverage (coffee_shop)</option>
+                <option value="retail_supermarket">Retail Grocery (retail_supermarket)</option>
+                <option value="digital_goods">Digital Goods & Subscriptions (digital_goods)</option>
+                <option value="luxury_jewelry">High-End Luxury (luxury_jewelry)</option>
+                <option value="cryptocurrency_exchange">Cryptocurrency Exchange (cryptocurrency_exchange)</option>
+                <option value="wire_transfer">Wire & Remittance (wire_transfer)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="device-id">Device Identifier</label>
+              <input type="text" id="device-id" class="input-ctrl mono" value="ios_alvin_device">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="geo-lat">Latitude</label>
+              <input type="number" id="geo-lat" step="0.0001" required class="input-ctrl mono" value="37.7749">
+            </div>
+            <div class="form-group">
+              <label for="geo-lon">Longitude</label>
+              <input type="number" id="geo-lon" step="0.0001" required class="input-ctrl mono" value="-122.4194">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="btn-eval" class="btn btn-radar">⚡ Screen Transaction</button>
+          </div>
+        </form>
+
+        <!-- Live Evaluation Result Box -->
+        <div id="eval-result-box" class="eval-result-card hidden">
+          <div class="decision-banner" id="res-decision-banner">
+            <span class="decision-badge" id="res-decision-badge">APPROVED</span>
+            <div class="score-display">
+              <span class="score-num" id="res-score-num">0</span>
+              <span class="score-label">Risk Score / 100</span>
+            </div>
+          </div>
+
+          <div class="factors-section">
+            <h4>Triggered Anomaly Factors:</h4>
+            <div id="res-factors-list" class="factors-list">
+              <div class="no-factors">Zero anomalies detected. Clean transaction baseline.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Compliance Alerts & Transaction Stream -->
+      <section class="card feed-card">
+        <div class="tabs-header">
+          <button class="tab-btn active" data-tab="tab-alerts">Active Fraud Alerts (<span id="alert-count-pill">0</span>)</button>
+          <button class="tab-btn" data-tab="tab-txs">Transaction Stream</button>
+        </div>
+
+        <div class="tab-content">
+          <!-- Alerts Tab -->
+          <div id="tab-alerts" class="tab-pane active">
+            <div class="alerts-stream" id="alerts-stream">
+              <div class="empty-state">No open security alerts.</div>
+            </div>
+          </div>
+
+          <!-- Transactions Tab -->
+          <div id="tab-txs" class="tab-pane">
+            <div class="tx-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Merchant</th>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Risk</th>
+                    <th>Decision</th>
+                  </tr>
+                </thead>
+                <tbody id="tx-tbody">
+                  <tr><td colspan="5" style="text-align:center;color:var(--text-muted);">Awaiting transactions...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
